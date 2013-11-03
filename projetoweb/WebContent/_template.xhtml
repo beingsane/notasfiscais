@@ -1,0 +1,92 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<style type="text/css">
+.ui-widget,.ui-widget .ui-widget {
+	font-size: 95% !important;
+}
+</style>
+
+<f:view contentType="text/html" />
+<h:head>
+	<title>#{msg.label_titulo} - <ui:insert name="titulo" />
+	</title>
+</h:head>
+<h:body>
+
+	<p:layout fullPage="true">
+		<p:layoutUnit id="top" position="north">
+			<h:form>
+				<p:toolbar>
+					<p:toolbarGroup align="left">
+						<p:commandButton icon="ui-icon-home"
+							title="#{msg.label_pagina_inicial}"
+							action="#{usuarioSessionMB.exibirHome()}" />
+
+						<p:separator />
+
+						<p:menuButton value="#{msg.menu_cadastros}">
+							<p:menuitem value="#{msg.menu_clientes}" outcome="cliente"
+								icon="ui-icon-contact" />
+
+							<p:menuitem value="ShowCase"
+								url="http://www.primefaces.org/showcase" />
+							<p:menuitem value="TouchFaces"
+								url="http://www.primefaces.org/showcase/touch" />
+
+						</p:menuButton>
+
+
+						<!--p:commandButton type="button" value="Open"
+							icon="ui-icon-folder-open" />
+						<p:separator />
+						<p:commandButton type="button" title="Save" icon="ui-icon-disk" />
+						<p:commandButton type="button" title="Delete" icon="ui-icon-trash" />
+						<p:commandButton type="button" title="Print" icon="ui-icon-print" /-->
+					</p:toolbarGroup>
+
+					<p:toolbarGroup align="right">
+						<p:menuButton value="MPalheta">
+							<p:menuitem value="#{msg.menu_ver_perfil}" icon="ui-icon-person"/>
+							<p:menuitem value="#{msg.menu_alterar_senha}" icon="ui-icon-refresh"/>
+							<p:separator/>
+							<p:menuitem value="#{msg.menu_logout}" icon="ui-icon-closethick"/>
+						</p:menuButton>
+					</p:toolbarGroup>
+				</p:toolbar>
+			</h:form>
+		</p:layoutUnit>
+
+		<p:layoutUnit id="bottom" position="south" size="40">
+			<h:outputText value="Rodape" />
+		</p:layoutUnit>
+
+
+		<!--p:layoutUnit id="left" position="west" size="200" resizable="false"
+			header="#{msg.label_menu_principal}" rendered="#{false}">
+			<h:form>
+				<p:panelMenu>
+					<p:submenu label="#{msg.menu_cadastros}">
+						<p:menuitem value="#{msg.menu_clientes}" outcome="cliente"
+							icon="ui-icon-contact" />
+						<p:menuitem value="#{msg.menu_funcionarios}" icon="ui-icon-person" />
+						<p:menuitem value="#{msg.menu_produtos}" icon="ui-icon-tag" />
+					</p:submenu>
+				</p:panelMenu>
+				<p:separator />
+				<p:commandButton value="Página inicial"
+					action="index?faces-redirect=true" />
+
+			</h:form>
+		</p:layoutUnit-->
+
+		<p:layoutUnit id="center" position="center">
+
+			<ui:insert name="conteudo" />
+		</p:layoutUnit>
+	</p:layout>
+</h:body>
+</html>

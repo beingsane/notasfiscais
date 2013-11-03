@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:body>
+	<ui:composition template="_template.xhtml">
+		<ui:define name="titulo">#{msg.label_lista_clientes}</ui:define>
+		<ui:define name="conteudo">
+			<f:event listener="#{clienteMB.iniciarConversa}" type="preRenderView" />
+			<h:form id="frmCliente">
+
+				<p:growl id="growl" showDetail="true" />
+
+				<!-- p:fieldset legend="#{msg.label_lista_clientes}" -->
+				<p:panel header="#{msg.label_lista_clientes}">
+
+					<p:outputPanel>
+						<p:inputText value="#{clienteMB.valorFiltro}" />
+						<p:commandButton id="btBuscar" value="#{msg.label_consultar}"
+							title="#{msg.label_consultar}" icon="ui-icon-search"
+							actionListener="#{clienteMB.filtrar}"
+							update=":frmCliente:dataTable" />
+						<p:commandButton id="btCadastrar" title="#{msg.label_cadastrar}"
+							icon="ui-icon-document" action="#{clienteMB.exibirCadastrar}" />
+					</p:outputPanel>
+
+					<p:spacer />
+
+
+					<p:dataTable id="dataTable" var="entidade"
+						value="#{clienteMB.listaEntidadesPaginada}" paginator="true"
+						rows="10" widgetVar="wdDataTable"
+						paginatorTemplate="#{clienteMB.listaEntidadesPaginada.rowCount} #{msg.label_tot_registros} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15" resizableColumns="true"
+						liveResize="true" rowKey="#{entidade.id}" selectionMode="single"
+						lazy="true" emptyMessage="#{msg.label_lista_vazia}"
+						selection="#{clienteMB.entidade}" paginatorPosition="bottom">
+
+						<p:column headerText="ID" style="width:10%">
+						#{entidade.id}
+					</p:column>
+
+						<p:column headerText="#{msg.label_nome}" style="width:40%"
+							sortBy="#{entidade.nome}">
+							<h:outputText value="#{entidade.nome}" />
+						</p:column>
+
+						<p:column headerText="#{msg.label_email}" style="width:40%"
+							sortBy="#{entidade.email}">
+						#{entidade.email}
+					</p:column>
+
+						<p:column style="width:5%; text-align:center">
+							<p:commandButton id="selectButton" icon="ui-icon-pencil"
+								title="#{msg.label_alterar}" action="#{clienteMB.exibirAlterar}">
+								<f:setPropertyActionListener value="#{entidade}"
+									target="#{clienteMB.entidade}" />
+							</p:commandButton>
+						</p:column>
+						<p:column style="width:5%; text-align:center" exportable="false">
+							<p:commandButton id="btDeletar" title="#{msg.label_excluir}"
+								icon="ui-icon-trash" action="#{clienteMB.excluir}"
+								update=":frmCliente">
+								<f:setPropertyActionListener value="#{entidade}"
+									target="#{clienteMB.entidade}" />
+								<p:confirm header="#{msg.label_solicitacao_confirmacao}"
+									message="#{msg.label_confirma_exclusao}" icon="ui-icon-alert" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+					<!-- /p:fieldset-->
+				</p:panel>
+
+				<p:confirmDialog global="true" showEffect="fade"
+					hideEffect="explode">
+					<p:commandButton value="#{msg.label_sim}" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="#{msg.label_nao}" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:body>
+	<ui:composition template="_template.xhtml">
+		<ui:define name="titulo">#{msg.label_dados_cliente}</ui:define>
+		<ui:define name="conteudo">
+
+			<h:form id="frmClienteDados">
+				<p:growl id="growl" autoUpdate="true" showSummary="true" />
+				<p:panel id="panel" header="#{msg.label_dados_cliente}">
+					<p:focus context="panel" />
+					<h:panelGrid columns="2" cellpadding="5">
+						<h:outputLabel value="#{msg.label_codigo}:" for="codigo"
+							rendered="#{clienteMB.entidade.id != null}" />
+						<p:inputText id="codigo" label="#{msg.label_codigo}" size="10"
+							rendered="#{clienteMB.entidade.id != null}" readonly="true" 
+							value="#{clienteMB.entidade.id}"/>
+
+						<p:outputLabel value="#{msg.label_nome}:" for="nome"/>
+						<p:inputText id="nome" label="#{msg.label_nome}" size="50"
+							required="true" value="#{clienteMB.entidade.nome}"/>
+
+						<p:outputLabel value="#{msg.label_email}:" for="email" />
+						<p:inputText id="email" label="#{msg.label_email}" size="50"
+							required="true" value="#{clienteMB.entidade.email}"/>
+					</h:panelGrid>
+					<p:commandButton value="#{msg.label_salvar}" update="panel"
+						action="#{clienteMB.salvar}" />
+					<p:commandButton value="#{msg.label_cancelar}" immediate="true"
+						action="#{clienteMB.cancelar}" />
+				</p:panel>
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
