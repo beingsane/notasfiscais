@@ -20,7 +20,7 @@
 	<p:layout fullPage="true">
 		<p:layoutUnit id="top" position="north">
 			<h:form>
-				<p:toolbar>
+				<p:toolbar rendered="#{usuarioSessionMB.logado}">
 					<p:toolbarGroup align="left">
 						<p:commandButton icon="ui-icon-home"
 							title="#{msg.label_pagina_inicial}"
@@ -49,11 +49,11 @@
 					</p:toolbarGroup>
 
 					<p:toolbarGroup align="right">
-						<p:menuButton value="MPalheta">
+						<p:menuButton value="#{usuarioSessionMB.usuario.login}">
 							<p:menuitem value="#{msg.menu_ver_perfil}" icon="ui-icon-person"/>
 							<p:menuitem value="#{msg.menu_alterar_senha}" icon="ui-icon-refresh"/>
 							<p:separator/>
-							<p:menuitem value="#{msg.menu_logout}" icon="ui-icon-closethick"/>
+							<p:menuitem value="#{msg.menu_logout}" icon="ui-icon-closethick" action="#{loginMB.efetuarLogout}"/>
 						</p:menuButton>
 					</p:toolbarGroup>
 				</p:toolbar>
